@@ -1,0 +1,42 @@
+diff --git a/dist/index.js b/dist/index.js
+index 75926633325c009d95a01609e2d7e4768084eca7..17128bc9909926fd2334bb5f5268d1f4755f1b26 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -5871,28 +5871,6 @@ var prepVercel = async () => {
+   console.log("\u26A1\uFE0F");
+   console.log("\u26A1\uFE0F Installing 'vercel' CLI...");
+   console.log("\u26A1\uFE0F");
+-  const vercelBuild = (0, import_child_process.spawn)("npm", ["install", "-D", "vercel"]);
+-  vercelBuild.stdout.on("data", (data2) => {
+-    const lines = data2.toString().split("\n");
+-    lines.map((line) => {
+-      console.log(`\u25B2 ${line}`);
+-    });
+-  });
+-  vercelBuild.stderr.on("data", (data2) => {
+-    const lines = data2.toString().split("\n");
+-    lines.map((line) => {
+-      console.log(`\u25B2 ${line}`);
+-    });
+-  });
+-  await new Promise((resolve2, reject) => {
+-    vercelBuild.on("close", (code) => {
+-      if (code === 0) {
+-        resolve2(null);
+-      } else {
+-        reject();
+-      }
+-    });
+-  });
+   console.log("\u26A1\uFE0F");
+   console.log("\u26A1\uFE0F");
+   console.log("\u26A1\uFE0F Completed 'npx vercel build'.");
+@@ -5902,7 +5880,7 @@ var buildVercel = async () => {
+   console.log("\u26A1\uFE0F");
+   console.log("\u26A1\uFE0F Building project with 'npx vercel build'...");
+   console.log("\u26A1\uFE0F");
+-  const vercelBuild = (0, import_child_process.spawn)("npx", ["vercel", "build"]);
++  const vercelBuild = (0, import_child_process.spawn)("pnpm", ["vercel", "build"]);
+   vercelBuild.stdout.on("data", (data2) => {
+     const lines = data2.toString().split("\n");
+     lines.map((line) => {
