@@ -1,12 +1,16 @@
-.form {
+.main > div {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
   text-align: left;
-  gap: 0.5rem;
 
   border: 1px solid #eaeaea;
   background: #fafafa;
-  padding: 2rem;
+  padding: 1rem;
+  line-height: 0.5rem;
+}
+
+.main > div > p:first-of-type {
+  font-weight: bold;
 }
