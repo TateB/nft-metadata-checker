@@ -1,13 +1,14 @@
 import styles from "@/styles/Contract.module.css";
 import getMetadata from "@/utils/getMetadata";
 import resolveURI from "@/utils/resolveURI";
-import { Inter } from "@next/font/google";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-const inter = Inter({ subsets: ["latin"] });
+export const config = {
+  runtime: "experimental-edge",
+};
 
 type Data =
   | {
@@ -22,22 +23,30 @@ type Data =
     }
   | { error: string };
 
+const getParams = (params: any, url: string) => {
+  const splitUrl = url.split("/");
+  if (!params) {
+    params = {
+      contractAddress: splitUrl[2],
+      tokenId: splitUrl[3],
+    };
+  } else if (!params.contractAddress || !params.tokenId) {
+    params.contractAddress = splitUrl[2];
+    params.tokenId = splitUrl[3];
+  }
+  return params;
+};
+
 export const getServerSideProps: GetServerSideProps<
   { data: Data },
   { contractAddress: string; tokenId: string }
-> = async ({ params }) => {
+> = async ({ params, resolvedUrl }) => {
   if (!params) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
+    params = getParams(params, resolvedUrl);
   }
-
   const data = await getMetadata(
-    params.contractAddress as `0x${string}`,
-    params.tokenId
+    params!.contractAddress as `0x${string}`,
+    params!.tokenId
   );
 
   return {
@@ -85,8 +94,8 @@ export default function Home({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
-  const contractAddress = router.query.contractAddress;
-  const tokenId = router.query.tokenId;
+  const params = getParams(router.query, router.asPath);
+  const { contractAddress, tokenId } = params;
 
   return (
     <>
