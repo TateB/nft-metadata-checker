@@ -1,0 +1,28 @@
+diff --git a/dist/chunk-62VTYU2V.mjs b/dist/chunk-62VTYU2V.mjs
+index d2f1225e540816964c8e63b94ecb9ea6842acde3..98f0b68f4c0561c95d20b696b36bc836856bf93a 100644
+--- a/dist/chunk-62VTYU2V.mjs
++++ b/dist/chunk-62VTYU2V.mjs
+@@ -974,6 +974,7 @@ function sliceBytes(value, start, end) {
+   return value.slice(start, end);
+ }
+ function sliceHex(value_, start, end) {
++  if (start === end) return "0x";
+   assertStartOffset(value_, start);
+   const value = value_.replace("0x", "").slice((start ?? 0) * 2, (end ?? value_.length) * 2);
+   return `0x${value}`;
+@@ -1320,7 +1321,7 @@ function getContractError(err, {
+ }
+ 
+ // src/utils/hash/keccak256.ts
+-import { keccak_256 } from "@noble/hashes/sha3";
++import { keccak_256 } from "@noble/hashes/sha3"
+ function keccak256(value, to_) {
+   const to = to_ || "hex";
+   const bytes = keccak_256(value);
+@@ -2685,5 +2686,5 @@ export {
+   TransactionReceiptNotFoundError,
+   WaitForTransactionReceiptTimeoutError,
+   UrlRequiredError
+-};
++}
+ //# sourceMappingURL=chunk-62VTYU2V.mjs.map
